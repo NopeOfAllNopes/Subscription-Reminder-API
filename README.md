@@ -1,11 +1,5 @@
 ## Subscription Reminder Microservice Overview
-The Subscription Reminder Microservice is a REST API designed in Node.js for tracking and sending subscription bill reminders, and uses the following packages:
-
-Express, SQLite 3, DotENV, Nodemailer
-
-It  was made in and for Windows 10, and is intended to be run before the main program is started, but can feasibly be ran at any time and still function well.
-
-As of current, the microservice is ran on a local environment through: "http://localhost:5000"
+The Subscription Reminder Microservice is a REST API designed in Node.js for tracking and sending subscription bill reminders, and uses the following packages: Express, SQLite 3, DotENV, Nodemailer. It  was made in and for Windows 10, and is intended to be run before the main program is started, but can feasibly be ran at any time and still function well. As of current, the microservice is ran on a local environment through: "http://localhost:5000"
 
 ## Database
 
@@ -27,9 +21,7 @@ Table 'reminders':
 
 ## Emailing System
 Emails are sent out through Nodemailer requests using a specified service and an associated account name and password.
-As of current, the email's form is very basic for testing purposes.
-
-The service checks every 24 hours for the current day at midnight UTC. 
+As of current, the email's form is very basic for testing purposes. The service checks every 24 hours for the current day at midnight UTC. 
 If a new day has been identified, it gets the current date (in milliseconds) and gathers all 'reminders' entries with an equal remindDate value.
 
 ## .env File Setup
@@ -39,7 +31,6 @@ Documentation for nodemailer can be found at https://nodemailer.com, it is recom
 
 ## Python Setup
 HTTP requests in Python can be made using the 'requests' library, obtained through running 'pip install requests'. It is also reccommended to install 'calendar' via the same manner.
-
 The example code that will be show for how to interact with the microservice over Python will be shown with the following libraries:
 ```
 import requests, calendar, datetime
@@ -68,7 +59,6 @@ print(req.status_code)                                    # Display recieved res
 ## /createReminder
 The createReminder route takes a POST request with an associated JSON data packet containing:
 email, name, service, billDate, billPeriod, and reminderPeriod.
-
 From this data, it will create a reminder in the reminders database and calculate the date to send the next reminder.
 
 **NOTE: Reminders should only be created with the intent to be sent at least a day out as of current.**
@@ -78,17 +68,13 @@ It returns a status code indicating success (200) or failiure (400).
 ## /updateReminder
 The updateReminder route takes a PUT request with an associated JSON data packet containing:
 email, name, service, billDate, billPeriod, and remindPeriod.
-
 It will then update the billDate, billPeriod and remindDate of the entry containing email, name, service.
-
 It returns a status code indicating success (200) or failiure (400).
 
 ## /deleteReminder
 The deleteReminder route takes a DELETE request with an associated JSON data packet containing:
 email, service.
-
 It will then delete the associated entry in the database containing email, service.
-
 It returns a status code indicating success (200) or failiure (400).
 
 ## UML Diagram
