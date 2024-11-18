@@ -1,24 +1,6 @@
 ## Subscription Reminder Microservice Overview
 The Subscription Reminder Microservice is a REST API designed in Node.js for tracking and sending subscription bill reminders, and uses the following packages: Express, SQLite 3, DotENV, Nodemailer. It  was made in and for Windows 10, and is intended to be run before the main program is started, but can feasibly be ran at any time and still function well. As of current, the microservice is ran on a local environment through: "http://localhost:5000"
 
-## Database
-
-Reminder data recieved and parsed by the microservice is stored locally on a SQLite 3 Database.
-
-The schema for the 'reminders' database table is built like such:
-```
-Table 'reminders':
-    id         = integer,     primary key for each reminder.
-    email      = varchar(255), email address for reminder recipient.
-    name       = varchar(255), name of reminder recipient.
-    service    = varchar(255), subscription service name.
-    billDate   = integer,     subscription service billing date. (IN MILLISECONDS)
-    billPeriod = integer,     number of days between billing dates.
-    remindDate = integer,     date of next reminder. (IN MILLISECONDS)
-```
-### ***NOTE: remindDate is calculated on the end of the microservice. On the requesting end, this will be replaced with remindPeriod, which is an integer representing the number of days out from the billing period that a reminder should be sent.***
-
-
 ## Emailing System
 Emails are sent out through Nodemailer requests using a specified service and an associated account name and password.
 As of current, the email's form is very basic for testing purposes. The service checks every 24 hours for the current day at midnight UTC. 
